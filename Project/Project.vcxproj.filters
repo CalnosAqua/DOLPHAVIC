@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{db562467-47c4-4917-9f2d-ee7cea8714f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics">
+      <UniqueIdentifier>{1e6b5c52-c2d6-4e44-8608-b812ab6589e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\headers">
+      <UniqueIdentifier>{09a5efc0-6a1b-4605-9647-033906e47529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\sources">
+      <UniqueIdentifier>{c27ef638-38d7-4f39-9d48-449cde90ce0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{1498e080-3964-479a-9d31-d3905e38deaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{b056668a-1059-42f0-ae92-740f8266111c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometries">
+      <UniqueIdentifier>{bd914cda-518e-4b0e-945d-5c963f22d099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Direct3D12">
+      <UniqueIdentifier>{aa010a78-c71f-4017-a2ea-ffb38fe939e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Direct3D12\headers">
+      <UniqueIdentifier>{a221395a-5f57-488b-84de-b9275611ff52}</UniqueIdentifier>
+      <Extensions>h;hpp;</Extensions>
+    </Filter>
+    <Filter Include="Direct3D12\sources">
+      <UniqueIdentifier>{78814f59-e917-46a3-b69f-847deda4c784}</UniqueIdentifier>
+      <Extensions>c;cpp;</Extensions>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{18938bb2-7230-4fc4-88dd-5280e7edab29}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFVector2.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFVector3.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFVector4.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\Math.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFComplex.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFQuaternion.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFRotation.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFEulerRotation.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFMatrix2x2.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFMatrix3x3.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFMatrix4x4.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\CTimer.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\FMathUtil.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\geo\CFPlane3.cpp">
+      <Filter>Geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="src\win\CWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFDualComplex.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\CFDualQuaternion.cpp">
+      <Filter>Mathematics\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12Device.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12CommandQueue.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12CommandList.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12DescriptorHeap.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12Fence.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12Shader.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12SwapChain.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12Renderer.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12ResourceBarrier.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12InputLayout.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12PipelineState.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12RootSignature.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\SD3D12Resource.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CDSV.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CIBV.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CRTV.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12Resource.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.hpp">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="include\dalib.hpp">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFVector2.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFVector3.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFVector4.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\Math.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\EAngleType.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFComplex.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFQuaternion.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFRotation.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\EAxisType.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFEulerRotation.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFMatrix2x2.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat2.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat2x2.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat3.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat3x3.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat4.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\SFloat4x4.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFMatrix3x3.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFMatrix4x4.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\CTimer.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\FMathUtil.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\EHandSide.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\ESkewType.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\geo\CRay.hpp">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\geo\CLSeg.hpp">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\geo\CFPlane3.hpp">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\geo\CBezierCurves.hpp">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cont\CArray.hpp">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cont\CVector.hpp">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\win\CWindow.hpp">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\INoncopyable.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\INonmovable.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\ISingleton.hpp">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFDualComplex.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\math\CFDualQuaternion.hpp">
+      <Filter>Mathematics\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12Device.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12CommandQueue.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\ED3D12CommandType.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12CommandList.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12DescriptorHeap.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12Fence.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12Shader.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12SwapChain.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\ED3D12ShaderType.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\ED3D12ViewType.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12Renderer.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12ResourceBarrier.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12InputLayout.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12PipelineState.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12RootSignature.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\SD3D12Resource.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CCBV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12Resource.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CDSV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CIBV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CRTV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CVBV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
