@@ -97,6 +97,7 @@ namespace dlav {
 		memcpy(ptr, vertices.data(), vertices.size() * sizeof(Vertex));
 
 		m_rsrc->Unmap(0U, nullptr);
+		ptr = nullptr;
 
 		m_view.BufferLocation = m_rsrc->GetGPUVirtualAddress();
 		m_view.SizeInBytes = sizeof(Vertex) * static_cast<unsigned int>(vertices.size());

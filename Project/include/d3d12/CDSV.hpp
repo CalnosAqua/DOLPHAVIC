@@ -35,8 +35,6 @@ namespace dlav {
 
 		//!	@brief	取得関数
 		CD3D12Resource const& get() const noexcept;
-		//!	@brief	取得関数
-		D3D12_DEPTH_STENCIL_DESC& getDesc() const noexcept;
 	private:
 		//!	@brief	記述子ヒープ
 		CD3D12DescriptorHeap m_heap;

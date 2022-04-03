@@ -136,7 +136,6 @@ namespace dlav {
 				m_buffers[idx].cpu
 			);
 
-			m_datas[idx] = new T();
 			hResult = m_buffers[idx]->Map(
 				0U,
 				nullptr,
@@ -159,8 +158,9 @@ namespace dlav {
 
 	template<typename T>
 	inline void CD3D12ConstantBuffer<T>::uninit() noexcept {
-		for (unsigned int idx = 0U; idx < m_buffers.size(); ++idx) {
-			safe_release(m_buffers[idx].rsrc);
+		for (SD3D12Resource& buffer : m_buffers) {
+			buffer->Unmap(0U, nullptr);
+			safe_release(buffer.rsrc);
 		}
 	}
 
