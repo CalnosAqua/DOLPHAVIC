@@ -143,6 +143,9 @@
     <ClCompile Include="src\d3d12\CD3D12Resource.cpp">
       <Filter>Direct3D12\sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\d3d12\CD3D12GraphicsPipeline.cpp">
+      <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.hpp">
@@ -320,6 +323,9 @@
       <Filter>Direct3D12\headers</Filter>
     </ClInclude>
     <ClInclude Include="include\d3d12\CVBV.hpp">
+      <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\d3d12\CD3D12GraphicsPipeline.hpp">
       <Filter>Direct3D12\headers</Filter>
     </ClInclude>
   </ItemGroup>

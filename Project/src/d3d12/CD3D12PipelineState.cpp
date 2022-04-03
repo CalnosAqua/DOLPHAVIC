@@ -106,8 +106,8 @@ namespace dlav {
 		safe_release(m_state);
 	}
 
-	ID3D12PipelineState* CD3D12PipelineState::get() const noexcept {
-		return m_state;
+	ID3D12PipelineState*& CD3D12PipelineState::get() const noexcept {
+		return *const_cast<ID3D12PipelineState**>(&m_state);
 	}
 
 	ID3D12PipelineState* CD3D12PipelineState::operator->() const noexcept {

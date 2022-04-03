@@ -90,8 +90,8 @@ namespace dlav {
 		return m_heap->GetGPUDescriptorHandleForHeapStart();
 	}
 
-	ID3D12DescriptorHeap* CD3D12DescriptorHeap::get() noexcept {
-		return m_heap;
+	ID3D12DescriptorHeap*& CD3D12DescriptorHeap::get() const noexcept {
+		return *const_cast<ID3D12DescriptorHeap**>(&m_heap);
 	}
 
 	ID3D12DescriptorHeap* CD3D12DescriptorHeap::operator->() const noexcept {

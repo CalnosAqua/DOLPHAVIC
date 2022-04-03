@@ -49,7 +49,7 @@ namespace dlav {
 		m_data.uninit();
 	}
 
-	CD3D12Resource const& CD3D12DepthStencil::get() const noexcept {
-		return m_data;
+	CD3D12Resource& CD3D12DepthStencil::get() const noexcept {
+		return *const_cast<CD3D12Resource*>(&m_data);
 	}
 }

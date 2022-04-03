@@ -55,7 +55,7 @@ namespace dlav {
 		}
 	}
 
-	CD3D12Resource const& CD3D12RenderTarget::get(unsigned int const& idx) const noexcept {
-		return m_datas[idx];
+	CD3D12Resource& CD3D12RenderTarget::get(unsigned int const& idx) const noexcept {
+		return *const_cast<CD3D12Resource*>(&m_datas[idx]);
 	}
 }

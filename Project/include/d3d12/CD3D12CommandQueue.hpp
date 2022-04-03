@@ -30,7 +30,7 @@ namespace dlav {
 		void uninit() noexcept;
 
 		//!	@brief	ポインタ取得
-		ID3D12CommandQueue* get() const noexcept;
+		ID3D12CommandQueue*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		ID3D12CommandQueue* operator->() const noexcept;
 

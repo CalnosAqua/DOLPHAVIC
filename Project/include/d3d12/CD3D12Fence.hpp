@@ -35,7 +35,7 @@ namespace dlav {
 		void wait(CD3D12CommandQueue const&) noexcept;
 
 		//!	@brief	取得関数
-		ID3D12Fence* get() const noexcept;
+		ID3D12Fence1*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		ID3D12Fence1* operator->() const noexcept;
 	private:

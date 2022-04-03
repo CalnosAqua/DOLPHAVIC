@@ -9,7 +9,7 @@ namespace dlav {
 	/**	@struct	SD3D12Resource
 	 *	@brief	リソース
 	 */
-	struct SD3D12Resource final : public INoncopyable<SD3D12Resource> {
+	struct SD3D12Resource : public INoncopyable<SD3D12Resource> {
 		//!	@brief	CPU 記述子ハンドル
 		D3D12_CPU_DESCRIPTOR_HANDLE cpu;
 		//!	@brief	GPU 記述子ハンドル

@@ -172,17 +172,17 @@ namespace dlav {
 			return false;
 		}
 
-		m_barrier.toRTMode(m_list, *const_cast<CD3D12Resource*>(&m_rtv.get(m_currentIndex)));
+		m_barrier.toRTMode(m_list, m_rtv.get(m_currentIndex));
 
 		if (m_dsv.get().get()) {
-			m_list->OMSetRenderTargets(1U, const_cast<D3D12_CPU_DESCRIPTOR_HANDLE*>(&m_rtv.get(m_currentIndex).getCPUDescriptorHandle()), false, &m_dsv.get().getCPUDescriptorHandle());
+			m_list->OMSetRenderTargets(1U, &m_rtv.get(m_currentIndex).getCPUDescriptorHandle(), false, &m_dsv.get().getCPUDescriptorHandle());
 			m_list->ClearDepthStencilView(m_dsv.get().getCPUDescriptorHandle(), D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0U, 0U, nullptr);
 		}
 		else {
-			m_list->OMSetRenderTargets(1U, const_cast<D3D12_CPU_DESCRIPTOR_HANDLE*>(&m_rtv.get(m_currentIndex).getCPUDescriptorHandle()), false, nullptr);
+			m_list->OMSetRenderTargets(1U, &m_rtv.get(m_currentIndex).getCPUDescriptorHandle(), false, nullptr);
 		}
 
-		m_list->ClearRenderTargetView(*const_cast<D3D12_CPU_DESCRIPTOR_HANDLE*>(&m_rtv.get(m_currentIndex).getCPUDescriptorHandle()), m_color.p, 0, nullptr);
+		m_list->ClearRenderTargetView(m_rtv.get(m_currentIndex).getCPUDescriptorHandle(), m_color.p, 0, nullptr);
 
 		m_list->RSSetViewports(1, &m_viewport);
 		m_list->RSSetScissorRects(1, &m_rect);
@@ -191,7 +191,7 @@ namespace dlav {
 	}
 
 	bool const CD3D12Renderer::after_rendering() noexcept {
-		m_barrier.toPresentMode(m_list, *const_cast<CD3D12Resource*>(&m_rtv.get(m_currentIndex)));
+		m_barrier.toPresentMode(m_list, m_rtv.get(m_currentIndex));
 
 		m_list.closing();
 

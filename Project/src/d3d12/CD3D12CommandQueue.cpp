@@ -74,8 +74,8 @@ namespace dlav {
 		safe_release(m_queue);
 	}
 
-	ID3D12CommandQueue* CD3D12CommandQueue::get() const noexcept {
-		return m_queue;
+	ID3D12CommandQueue*& CD3D12CommandQueue::get() const noexcept {
+		return *const_cast<ID3D12CommandQueue**>(&m_queue);
 	}
 
 	ID3D12CommandQueue* CD3D12CommandQueue::operator->() const noexcept {

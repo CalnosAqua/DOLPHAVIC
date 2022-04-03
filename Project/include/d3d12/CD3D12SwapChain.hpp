@@ -46,7 +46,7 @@ namespace dlav {
 		void uninit() noexcept;
 
 		//!	@brief	取得関数
-		IDXGISwapChain4* get() const noexcept;
+		IDXGISwapChain4*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		IDXGISwapChain4* operator->() const noexcept;
 	private:

@@ -4,6 +4,7 @@
 *.log
 *.tlog
 *.recipe
+*.ipch
 
 # Compiled Object files
 *.slo

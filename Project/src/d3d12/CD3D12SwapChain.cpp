@@ -118,8 +118,8 @@ namespace dlav {
 		safe_release(m_chain);
 	}
 
-	IDXGISwapChain4* CD3D12SwapChain::get() const noexcept {
-		return m_chain;
+	IDXGISwapChain4*& CD3D12SwapChain::get() const noexcept {
+		return *const_cast<IDXGISwapChain4**>(&m_chain);
 	}
 
 	IDXGISwapChain4* CD3D12SwapChain::operator->() const noexcept {

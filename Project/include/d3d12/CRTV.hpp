@@ -46,7 +46,7 @@ namespace dlav {
 		void rsrc_release() noexcept;
 
 		//!	@brief	取得関数
-		CD3D12Resource const& get(unsigned int const&) const noexcept;
+		CD3D12Resource& get(unsigned int const&) const noexcept;
 	private:
 		//!	@brief	記述子ヒープ
 		CD3D12DescriptorHeap m_heap;

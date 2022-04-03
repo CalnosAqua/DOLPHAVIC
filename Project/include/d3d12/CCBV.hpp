@@ -5,8 +5,8 @@
 #include "CD3D12DescriptorHeap.hpp"
 #include "SD3D12Resource.hpp"
 #include "CD3D12Device.hpp"
-#include "CD3D12Renderer.hpp"
-#include <vector>
+#include "CD3D12CommandList.hpp"
+#include <array>
 
 namespace dlav {
 	/**	@struct CD3D12ConstantBufferView
@@ -18,7 +18,12 @@ namespace dlav {
 		//!	@brief	ムーブコンストラクタ
 		CD3D12ConstantBuffer(CD3D12ConstantBuffer<T>&&) noexcept = default;
 		//!	@brief	ムーブ代入演算子
-		CD3D12ConstantBuffer& operator=(CD3D12ConstantBuffer<T>&&) noexcept = default;
+		CD3D12ConstantBuffer<T>& operator=(CD3D12ConstantBuffer<T>&&) noexcept = default;
+
+		//!	@brief	データ代入演算子
+		CD3D12ConstantBuffer<T>& operator=(T const&) noexcept;
+		//!	@brief	データキャスト演算子
+		explicit operator T const& () const noexcept;
 
 		//!	@brief	デフォルトコンストラクタ
 		CD3D12ConstantBuffer() noexcept;
@@ -26,44 +31,55 @@ namespace dlav {
 		~CD3D12ConstantBuffer() noexcept;
 
 		//!	@brief	初期化関数
-		bool const init(T const& data, unsigned int const& size) noexcept;
+		bool const init(T const& data) noexcept;
 		//!	@brief	終了関数
 		void uninit() noexcept;
 
-		//!	@brief	記述子ヒープ取得関数
-		ID3D12DescriptorHeap* getHeap() const noexcept;
 		//!	@brief	バッファ取得関数
-		ID3D12Resource2*& get(unsigned int const&) const noexcept;
-		//!	@brief	設定データ取得関数
-		D3D12_CONSTANT_BUFFER_VIEW_DESC& getCBVDesc(unsigned int const&) const noexcept;
-		//!	@brief	データ取得関数
-		T& getData(unsigned int const&) noexcept;
+		ID3D12Resource2*& get() const noexcept;
 
-		//!	@brief	レンダラへ登録
-		void setRenderer(CD3D12Renderer&) noexcept;
+		//!	@brief	レンダラへ登録する関数
+		void setRenderer(CD3D12CommandList&) noexcept;
 		
 	private:
+		template<typename T>
+		struct SConstantResource final :
+			public SD3D12Resource
+		{
+			//!	@brief	定数バッファビュー
+			D3D12_CONSTANT_BUFFER_VIEW_DESC cbv;
+			//!	@brief	定数バッファビュー
+			T* data;
+		};
+
 		//!	@brief	記述子ヒープ
 		CD3D12DescriptorHeap m_heap;
-		//!	@brief	設定データ
-		std::vector<D3D12_CONSTANT_BUFFER_VIEW_DESC> m_settings;
-		//!	@brief	バッファ
-		std::vector<SD3D12Resource> m_buffers;
-		//!	@brief	データ
-		std::vector<T*> m_datas;
-		//!	@brief	初期化済みかどうか
-		bool m_inited;
+		//!	@brief	リソース
+		std::array<SConstantResource<T>, 2U> m_rsrces;
+		//!	@brief	現在の対象インデックス
+		unsigned int m_curIndex;
 	};
 
 	/* 実装 */
 
 	template<typename T>
+	inline CD3D12ConstantBuffer<T>& CD3D12ConstantBuffer<T>::operator=(T const& rhs) noexcept {
+		for (SConstantResource<T>& rsrc : m_rsrces) {
+			*rsrc.data = rhs;
+		}
+		return *this;
+	}
+
+	template<typename T>
+	inline CD3D12ConstantBuffer<T>::operator T const& () const noexcept {
+		return *m_rsrces[m_curIndex].data;
+	}
+
+	template<typename T>
 	inline CD3D12ConstantBuffer<T>::CD3D12ConstantBuffer() noexcept :
 		m_heap(),
-		m_settings(),
-		m_buffers(),
-		m_datas(),
-		m_inited()
+		m_rsrces(),
+		m_curIndex()
 	{}
 
 	template<typename T>
@@ -72,21 +88,10 @@ namespace dlav {
 	}
 
 	template<typename T>
-	inline bool const CD3D12ConstantBuffer<T>::init(T const& data, unsigned int const& size) noexcept {
-		unsigned int const inc = CD3D12Device::getInstance()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
-		if (m_inited) {
+	inline bool const CD3D12ConstantBuffer<T>::init(T const& data) noexcept {
+		if (m_rsrces[0].data != nullptr && m_rsrces[1].data != nullptr) {
 			return true;
 		}
-
-		HRESULT hResult = S_OK;
-		D3D12_CPU_DESCRIPTOR_HANDLE cpu;
-		D3D12_GPU_DESCRIPTOR_HANDLE gpu;
-
-		m_heap.init(ED3D12ViewType::CBV, size);
-		m_settings.resize(size);
-		m_buffers.resize(size);
-		m_datas.resize(size);
 
 		D3D12_HEAP_PROPERTIES prop = {};
 		prop.Type = D3D12_HEAP_TYPE_UPLOAD;
@@ -108,87 +113,77 @@ namespace dlav {
 		desc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 		desc.Flags = D3D12_RESOURCE_FLAG_NONE;
 
-		cpu = m_heap->GetCPUDescriptorHandleForHeapStart();
-		gpu = m_heap->GetGPUDescriptorHandleForHeapStart();
+		if (!m_heap.init(ED3D12ViewType::CBV, static_cast<unsigned int>(m_rsrces.size()))) {
+			return false;
+		}
+
+		HRESULT hResult = S_OK;
+		D3D12_CPU_DESCRIPTOR_HANDLE cpu = m_heap->GetCPUDescriptorHandleForHeapStart();
+		D3D12_GPU_DESCRIPTOR_HANDLE gpu = m_heap->GetGPUDescriptorHandleForHeapStart();
+		unsigned int const inc =
+			CD3D12Device::getInstance()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 		
-		for (unsigned int idx = 0U; idx < size; ++idx) {
+		for (unsigned int idx = 0U; idx < m_rsrces.size(); ++idx) {
 			hResult = CD3D12Device::getInstance()->CreateCommittedResource(
 				&prop,
 				D3D12_HEAP_FLAG_NONE,
 				&desc,
 				D3D12_RESOURCE_STATE_GENERIC_READ,
 				nullptr,
-				__uuidof(m_buffers[idx].rsrc),
-				reinterpret_cast<void**>(&m_buffers[idx].rsrc)
+				__uuidof(m_rsrces[idx].rsrc),
+				reinterpret_cast<void**>(&m_rsrces[idx].rsrc)
 			);
 			if (FAILED(hResult)) {
 				OutputDebugStringA("ERROR : COMMITING FAILED CONSTANT BUFFER RESOURCE.\n");
 				return false;
 			}
 
-			m_settings[idx].SizeInBytes = sizeof(T);
-			m_settings[idx].BufferLocation = m_buffers[idx]->GetGPUVirtualAddress();
-			m_buffers[idx].cpu = cpu;
-			m_buffers[idx].gpu = gpu;
+			m_rsrces[idx].cbv.SizeInBytes = sizeof(T);
+			m_rsrces[idx].cbv.BufferLocation = m_rsrces[idx]->GetGPUVirtualAddress();
+			m_rsrces[idx].cpu = cpu;
+			m_rsrces[idx].gpu = gpu;
 
 			CD3D12Device::getInstance()->CreateConstantBufferView(
-				&m_settings[idx],
-				m_buffers[idx].cpu
+				&m_rsrces[idx].cbv,
+				m_rsrces[idx].cpu
 			);
 
-			hResult = m_buffers[idx]->Map(
+			hResult = m_rsrces[idx]->Map(
 				0U,
 				nullptr,
-				reinterpret_cast<void**>(&m_datas[idx])
+				reinterpret_cast<void**>(&m_rsrces[idx].data)
 			);
 			if (FAILED(hResult)) {
 				OutputDebugStringA("ERROR : MAPPING FAILED CONSTANT BUFFER RESOURCE.\n");
 				return false;
 			}
 
-			*m_datas[idx] = data;
+			*m_rsrces[idx].data = data;
 
 			cpu.ptr += inc;
 			gpu.ptr += inc;
 		}
 
-		m_inited = true;
 		return true;
 	}
 
 	template<typename T>
 	inline void CD3D12ConstantBuffer<T>::uninit() noexcept {
-		for (SD3D12Resource& buffer : m_buffers) {
-			buffer->Unmap(0U, nullptr);
-			safe_release(buffer.rsrc);
+		for (SConstantResource<T>& rsrc : m_rsrces) {
+			rsrc->Unmap(0U, nullptr);
+			safe_release(rsrc.rsrc);
 		}
 	}
 
 	template<typename T>
-	inline ID3D12Resource2*& CD3D12ConstantBuffer<T>::get(unsigned int const& idx) const noexcept {
-		return *const_cast<ID3D12Resource2**>(&m_buffers[idx].rsrc);
+	inline ID3D12Resource2*& CD3D12ConstantBuffer<T>::get() const noexcept {
+		return *const_cast<ID3D12Resource2**>(&m_rsrces[m_curIndex].rsrc);
 	}
 
 	template<typename T>
-	inline D3D12_CONSTANT_BUFFER_VIEW_DESC& CD3D12ConstantBuffer<T>::getCBVDesc(unsigned int const& idx) const noexcept {
-		return *const_cast<D3D12_CONSTANT_BUFFER_VIEW_DESC*>(&m_settings[idx]);
-	}
-
-	template<typename T>
-	inline T& CD3D12ConstantBuffer<T>::getData(unsigned int const& idx) noexcept {
-		return *const_cast<T*>(m_datas[idx]);
-	}
-
-	template<typename T>
-	inline void CD3D12ConstantBuffer<T>::setRenderer(CD3D12Renderer& rend) noexcept {
-		ID3D12DescriptorHeap* heap = getHeap();
-		rend.getCmdList()->SetDescriptorHeaps(1, const_cast<ID3D12DescriptorHeap* const*>(&heap));
-		rend.getCmdList()->SetGraphicsRootConstantBufferView(0, getCBVDesc(rend.getCurrentBufferIndex()).BufferLocation);
-		heap = nullptr;
-	}
-
-	template<typename T>
-	inline ID3D12DescriptorHeap* CD3D12ConstantBuffer<T>::getHeap() const noexcept {
-		return const_cast<CD3D12DescriptorHeap*>(&m_heap)->get();
+	inline void CD3D12ConstantBuffer<T>::setRenderer(CD3D12CommandList& lst) noexcept {
+		lst->SetDescriptorHeaps(1U, const_cast<ID3D12DescriptorHeap* const*>(&m_heap.get()));
+		lst->SetGraphicsRootConstantBufferView(0U, m_rsrces[m_curIndex].cbv.BufferLocation);
+		m_curIndex = (m_curIndex + 1U) % 2U;
 	}
 }

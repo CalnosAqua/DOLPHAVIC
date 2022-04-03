@@ -196,6 +196,12 @@
     <ClCompile Include="src\d3d12\CD3D12DescriptorHeap.cpp" />
     <ClCompile Include="src\d3d12\CD3D12Device.cpp" />
     <ClCompile Include="src\d3d12\CD3D12Fence.cpp" />
+    <ClCompile Include="src\d3d12\CD3D12GraphicsPipeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\d3d12\CD3D12InputLayout.cpp" />
     <ClCompile Include="src\d3d12\CD3D12PipelineState.cpp" />
     <ClCompile Include="src\d3d12\CD3D12Renderer.cpp" />
@@ -241,6 +247,12 @@
     <ClInclude Include="include\d3d12\CD3D12Device.hpp" />
     <ClInclude Include="include\d3d12\CD3D12CommandQueue.hpp" />
     <ClInclude Include="include\d3d12\CD3D12Fence.hpp" />
+    <ClInclude Include="include\d3d12\CD3D12GraphicsPipeline.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="include\d3d12\CD3D12InputLayout.hpp" />
     <ClInclude Include="include\d3d12\CD3D12PipelineState.hpp" />
     <ClInclude Include="include\d3d12\CD3D12Renderer.hpp" />

@@ -35,7 +35,7 @@ namespace dlav {
 		bool const closing() noexcept;
 
 		//!	@brief	ポインタ取得
-		ID3D12GraphicsCommandList6* get() const noexcept;
+		ID3D12GraphicsCommandList6*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		ID3D12GraphicsCommandList6* operator->() const noexcept;
 

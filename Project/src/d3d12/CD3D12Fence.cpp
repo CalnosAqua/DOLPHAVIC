@@ -122,8 +122,8 @@ namespace dlav {
 		return true;
 	}
 
-	ID3D12Fence* CD3D12Fence::get() const noexcept {
-		return m_fence;
+	ID3D12Fence1*& CD3D12Fence::get() const noexcept {
+		return *const_cast<ID3D12Fence1**>(&m_fence);
 	}
 
 	ID3D12Fence1* CD3D12Fence::operator->() const noexcept {

@@ -36,7 +36,7 @@ namespace dlav {
 		D3D12_GPU_DESCRIPTOR_HANDLE const getGPUStartHandle() const noexcept;
 
 		//!	@brief	取得関数
-		ID3D12DescriptorHeap* get() noexcept;
+		ID3D12DescriptorHeap*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		ID3D12DescriptorHeap* operator->() const noexcept;
 	private:

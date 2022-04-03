@@ -34,10 +34,10 @@ namespace dlav {
 
 		D3D12_ROOT_SIGNATURE_DESC desc = {};
 		desc.Flags = flags;
-		desc.NumParameters = static_cast<unsigned int>(prms.size());
 		desc.pParameters = prms.data();
-		desc.NumStaticSamplers = 0;
+		desc.NumParameters = static_cast<unsigned int>(prms.size());
 		desc.pStaticSamplers = nullptr;
+		desc.NumStaticSamplers = 0;
 
 		hResult = D3D12SerializeRootSignature(
 			&desc,
@@ -69,8 +69,8 @@ namespace dlav {
 		safe_release(m_signature);
 	}
 
-	ID3D12RootSignature* CD3D12RootSignature::get() const noexcept {
-		return m_signature;
+	ID3D12RootSignature*& CD3D12RootSignature::get() const noexcept {
+		return *const_cast<ID3D12RootSignature**>(&m_signature);
 	}
 
 	ID3D12RootSignature* CD3D12RootSignature::operator->() const noexcept {

@@ -46,7 +46,7 @@ namespace dlav {
 		void uninit() noexcept;
 
 		//!	@brief	参照演算子
-		ID3D12PipelineState* get() const noexcept;
+		ID3D12PipelineState*& get() const noexcept;
 		//!	@brief	メンバアクセス演算子
 		ID3D12PipelineState* operator->() const noexcept;
 

@@ -134,8 +134,8 @@ namespace dlav {
 		return true;
 	}
 
-	ID3D12GraphicsCommandList6* CD3D12CommandList::get() const noexcept {
-		return m_list;
+	ID3D12GraphicsCommandList6*& CD3D12CommandList::get() const noexcept {
+		return *const_cast<ID3D12GraphicsCommandList6**>(&m_list);
 	}
 
 	ID3D12GraphicsCommandList6* CD3D12CommandList::operator->() const noexcept {
