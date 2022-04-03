@@ -18,7 +18,7 @@ namespace dlav {
 	}
 
 	CD3D12CommandList& CD3D12CommandList::operator=(CD3D12CommandList&& rhs) noexcept {
-		exit();
+		uninit();
 		
 		m_alloc = rhs.m_alloc;
 		rhs.m_alloc = nullptr;
@@ -38,7 +38,7 @@ namespace dlav {
 	{}
 
 	CD3D12CommandList::~CD3D12CommandList() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12CommandList::init(ED3D12CommandType const& type) noexcept {
@@ -97,7 +97,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12CommandList::exit() noexcept {
+	void CD3D12CommandList::uninit() noexcept {
 		safe_release(m_list);
 		safe_release(m_alloc);
 	}

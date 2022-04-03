@@ -37,7 +37,7 @@ namespace dlav {
 		//! @brief 更新関数
 		CTimer& update() noexcept;
 		//! @brief 終了関数
-		CTimer& exit() noexcept;
+		CTimer& uninit() noexcept;
 
 		//! @brief 単精度浮動小数点数型のデルタ時間取得関数
 		float const FDeltaTime() const noexcept;

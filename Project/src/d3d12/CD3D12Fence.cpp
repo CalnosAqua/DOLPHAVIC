@@ -18,7 +18,7 @@ namespace dlav {
 	}
 
 	CD3D12Fence& CD3D12Fence::operator=(CD3D12Fence&& rhs) noexcept {
-		exit();
+		uninit();
 
 		m_fence = rhs.m_fence;
 		rhs.m_fence = nullptr;
@@ -39,7 +39,7 @@ namespace dlav {
 	{}
 
 	CD3D12Fence::~CD3D12Fence() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12Fence::init() noexcept {
@@ -72,7 +72,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12Fence::exit() noexcept {
+	void CD3D12Fence::uninit() noexcept {
 		safe_release(m_fence);
 		if (m_event != nullptr) {
 			CloseHandle(m_event);

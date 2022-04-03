@@ -25,7 +25,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(std::vector<D3D12_ROOT_PARAMETER> const&, D3D12_ROOT_SIGNATURE_FLAGS const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	取得関数
 		ID3D12RootSignature* get() const noexcept;

@@ -63,7 +63,7 @@ namespace dlav {
 		//!	@brief	初期化処理関数
 		bool const init(SWindowsWindowDesc const&) noexcept;
 		//!	@brief	終了処理関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	ウィンドウステータス表示処理関数
 		void showWindowStatus() noexcept;

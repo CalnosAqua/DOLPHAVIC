@@ -27,7 +27,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(ED3D12CommandType const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	コマンド記録開始
 		bool const recording() noexcept;

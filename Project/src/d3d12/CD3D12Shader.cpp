@@ -13,7 +13,7 @@ namespace dlav {
 	}
 
 	CD3D12Shader& CD3D12Shader::operator=(CD3D12Shader&& rhs) noexcept {
-		exit();
+		uninit();
 
 		m_shader = rhs.m_shader;
 		rhs.m_shader = nullptr;
@@ -27,7 +27,7 @@ namespace dlav {
 	{}
 
 	CD3D12Shader::~CD3D12Shader() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12Shader::init(LPCWSTR const& path) noexcept {
@@ -39,7 +39,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12Shader::exit() noexcept {
+	void CD3D12Shader::uninit() noexcept {
 		safe_release(m_shader);
 	}
 

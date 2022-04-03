@@ -27,7 +27,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init() noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	フェンス待機処理関数 (プレゼント中)
 		bool const presenting(CD3D12CommandQueue const&) noexcept;

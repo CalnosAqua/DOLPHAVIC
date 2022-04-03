@@ -24,7 +24,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(std::vector<Vertex> const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	リソース取得関数
 		D3D12_VERTEX_BUFFER_VIEW const& get() const noexcept;
@@ -46,7 +46,7 @@ namespace dlav {
 
 	template<typename Vertex>
 	inline CD3D12VertexBuffer<Vertex>::~CD3D12VertexBuffer() noexcept {
-		exit();
+		uninit();
 	}
 
 	template<typename Vertex>
@@ -106,7 +106,7 @@ namespace dlav {
 	}
 
 	template<typename Vertex>
-	inline void CD3D12VertexBuffer<Vertex>::exit() noexcept {
+	inline void CD3D12VertexBuffer<Vertex>::uninit() noexcept {
 		safe_release(m_rsrc.rsrc);
 	}
 

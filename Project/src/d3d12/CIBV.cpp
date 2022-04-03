@@ -25,8 +25,8 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12IndexBuffer::exit() noexcept {
-		m_rsrc.exit();
+	void CD3D12IndexBuffer::uninit() noexcept {
+		m_rsrc.uninit();
 	}
 
 	D3D12_INDEX_BUFFER_VIEW const& CD3D12IndexBuffer::get() const noexcept {

@@ -15,7 +15,7 @@ namespace dlav {
 
 	//!	@brief	ムーブ代入演算子
 	CD3D12PipelineState& CD3D12PipelineState::operator=(CD3D12PipelineState&& rhs) noexcept {
-		exit();
+		uninit();
 		m_state = rhs.m_state;
 		rhs.m_state = nullptr;
 		return *this;
@@ -26,7 +26,7 @@ namespace dlav {
 	{}
 
 	CD3D12PipelineState::~CD3D12PipelineState() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12PipelineState::init(SPSODesc const& arg) noexcept {
@@ -102,7 +102,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12PipelineState::exit() noexcept {
+	void CD3D12PipelineState::uninit() noexcept {
 		safe_release(m_state);
 	}
 

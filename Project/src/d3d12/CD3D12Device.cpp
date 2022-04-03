@@ -10,7 +10,7 @@ namespace dlav {
 	{}
 
 	CD3D12Device::~CD3D12Device() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12Device::init() noexcept {
@@ -49,7 +49,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12Device::exit() noexcept {
+	void CD3D12Device::uninit() noexcept {
 		safe_release(m_device);
 	}
 

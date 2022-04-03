@@ -21,7 +21,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init() noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	メンバアクセス演算子
 		ID3D12Device8* operator->() const noexcept;

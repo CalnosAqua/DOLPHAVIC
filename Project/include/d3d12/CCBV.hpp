@@ -28,7 +28,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(T const& data, unsigned int const& size) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	記述子ヒープ取得関数
 		ID3D12DescriptorHeap* getHeap() const noexcept;
@@ -68,7 +68,7 @@ namespace dlav {
 
 	template<typename T>
 	inline CD3D12ConstantBuffer<T>::~CD3D12ConstantBuffer() noexcept {
-		exit();
+		uninit();
 	}
 
 	template<typename T>
@@ -158,7 +158,7 @@ namespace dlav {
 	}
 
 	template<typename T>
-	inline void CD3D12ConstantBuffer<T>::exit() noexcept {
+	inline void CD3D12ConstantBuffer<T>::uninit() noexcept {
 		for (unsigned int idx = 0U; idx < m_buffers.size(); ++idx) {
 			safe_release(m_buffers[idx].rsrc);
 		}

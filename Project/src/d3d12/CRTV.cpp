@@ -11,7 +11,7 @@ namespace dlav {
 	{}
 
 	CD3D12RenderTarget::~CD3D12RenderTarget() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12RenderTarget::init(SRenderTargetViewDesc const& desc) noexcept {
@@ -44,14 +44,14 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12RenderTarget::exit() noexcept {
+	void CD3D12RenderTarget::uninit() noexcept {
 		rsrc_release();
-		m_heap.exit();
+		m_heap.uninit();
 	}
 
 	void CD3D12RenderTarget::rsrc_release() noexcept {
 		for (CD3D12Resource& rsrc : m_datas) {
-			rsrc.exit();
+			rsrc.uninit();
 		}
 	}
 

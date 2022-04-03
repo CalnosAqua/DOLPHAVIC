@@ -156,7 +156,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12Resource::exit() noexcept {
+	void CD3D12Resource::uninit() noexcept {
 		if (m_binded) {
 			m_rsrc->Unmap(0U, nullptr);
 			m_binded = false;

@@ -11,7 +11,7 @@ namespace dlav {
 	{}
 
 	CD3D12DepthStencil::~CD3D12DepthStencil() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12DepthStencil::init(HWND const& wnd_handle) noexcept {
@@ -40,13 +40,13 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12DepthStencil::exit() noexcept {
+	void CD3D12DepthStencil::uninit() noexcept {
 		rsrc_release();
-		m_heap.exit();
+		m_heap.uninit();
 	}
 
 	void CD3D12DepthStencil::rsrc_release() noexcept {
-		m_data.exit();
+		m_data.uninit();
 	}
 
 	CD3D12Resource const& CD3D12DepthStencil::get() const noexcept {

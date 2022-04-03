@@ -14,7 +14,7 @@ namespace dlav {
 		return *this;
 	}
 
-	CTimer& CTimer::exit() noexcept {
+	CTimer& CTimer::uninit() noexcept {
 		m_Start = 0;
 		m_Before = 0;
 		m_Latest = 0;

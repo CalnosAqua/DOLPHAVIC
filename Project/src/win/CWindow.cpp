@@ -28,7 +28,7 @@ namespace dlav {
 	}
 	
 	CWindow& CWindow::operator=(CWindow&& rhs) noexcept {
-		exit();
+		uninit();
 
 		m_hWnd = rhs.m_hWnd;
 		m_wndName = rhs.m_wndName;
@@ -49,7 +49,7 @@ namespace dlav {
 	{}
 
 	CWindow::~CWindow() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CWindow::init(SWindowsWindowDesc const& data) noexcept {
@@ -109,7 +109,7 @@ namespace dlav {
 		return m_inited;
 	}
 
-	void CWindow::exit() noexcept {
+	void CWindow::uninit() noexcept {
 		if (m_inited) {
 			char temp[100];
 			memset(temp, 0, 100);

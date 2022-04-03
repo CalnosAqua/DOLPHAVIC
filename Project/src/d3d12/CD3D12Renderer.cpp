@@ -22,7 +22,7 @@ namespace dlav {
 	{}
 
 	CD3D12Renderer::~CD3D12Renderer() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12Renderer::init(RendererDesc const& desc) noexcept {
@@ -117,8 +117,8 @@ namespace dlav {
 		unsigned int height = static_cast<unsigned int>(labs(rect.bottom - rect.top));
 
 		if (width > 0U && height > 0U) {
-			m_rtv.exit();
-			m_dsv.exit();
+			m_rtv.uninit();
+			m_dsv.uninit();
 
 			HRESULT hResult = m_chain->ResizeBuffers(
 				m_bufferCount,
@@ -160,7 +160,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12Renderer::exit() noexcept {
+	void CD3D12Renderer::uninit() noexcept {
 		waiting();
 		return;
 	}

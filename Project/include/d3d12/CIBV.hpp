@@ -21,7 +21,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(std::vector<unsigned int> const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	ビュー記述子取得
 		D3D12_INDEX_BUFFER_VIEW const& get() const noexcept;

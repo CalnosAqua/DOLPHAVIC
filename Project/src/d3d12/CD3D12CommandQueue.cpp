@@ -13,7 +13,7 @@ namespace dlav {
 	}
 
 	CD3D12CommandQueue& CD3D12CommandQueue::operator=(CD3D12CommandQueue&& rhs) noexcept {
-		exit();
+		uninit();
 		
 		m_queue = rhs.m_queue;
 		rhs.m_queue = nullptr;
@@ -27,7 +27,7 @@ namespace dlav {
 	{}
 
 	CD3D12CommandQueue::~CD3D12CommandQueue() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12CommandQueue::init(ED3D12CommandType const& type) noexcept {
@@ -70,7 +70,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12CommandQueue::exit() noexcept {
+	void CD3D12CommandQueue::uninit() noexcept {
 		safe_release(m_queue);
 	}
 

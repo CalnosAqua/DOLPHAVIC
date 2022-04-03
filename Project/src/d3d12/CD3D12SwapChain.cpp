@@ -15,7 +15,7 @@ namespace dlav {
 	}
 
 	CD3D12SwapChain& CD3D12SwapChain::operator=(CD3D12SwapChain&& rhs) noexcept {
-		exit();
+		uninit();
 
 		m_chain = rhs.m_chain;
 		rhs.m_chain = nullptr;
@@ -29,7 +29,7 @@ namespace dlav {
 	{}
 
 	CD3D12SwapChain::~CD3D12SwapChain() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12SwapChain::init(SSwapChainDesc const& desc) noexcept {
@@ -114,7 +114,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12SwapChain::exit() noexcept {
+	void CD3D12SwapChain::uninit() noexcept {
 		safe_release(m_chain);
 	}
 

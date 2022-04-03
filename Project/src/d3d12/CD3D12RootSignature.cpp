@@ -13,7 +13,7 @@ namespace dlav {
 	}
 	
 	CD3D12RootSignature& CD3D12RootSignature::operator=(CD3D12RootSignature&& rhs) noexcept {
-		exit();
+		uninit();
 		m_signature = rhs.m_signature;
 		rhs.m_signature = nullptr;
 		return *this;
@@ -24,7 +24,7 @@ namespace dlav {
 	{}
 
 	CD3D12RootSignature::~CD3D12RootSignature() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12RootSignature::init(std::vector<D3D12_ROOT_PARAMETER> const& prms, D3D12_ROOT_SIGNATURE_FLAGS const& flags) noexcept {
@@ -65,7 +65,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12RootSignature::exit() noexcept {
+	void CD3D12RootSignature::uninit() noexcept {
 		safe_release(m_signature);
 	}
 

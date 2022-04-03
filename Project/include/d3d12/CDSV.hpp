@@ -28,7 +28,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(HWND const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	リソース解放関数
 		void rsrc_release() noexcept;

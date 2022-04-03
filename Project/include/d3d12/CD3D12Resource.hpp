@@ -67,7 +67,7 @@ namespace dlav {
 		//!	@brief	深度ステンシル生成関数
 		bool const init(SDepthStencilDesc const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	メンバアクセス演算子
 		ID3D12Resource2* operator->() const noexcept;

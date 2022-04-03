@@ -43,7 +43,7 @@ namespace dlav {
 		//!	@brief	初期化関数
 		bool const init(SPSODesc const&) noexcept;
 		//!	@brief	終了関数
-		void exit() noexcept;
+		void uninit() noexcept;
 
 		//!	@brief	参照演算子
 		ID3D12PipelineState* get() const noexcept;

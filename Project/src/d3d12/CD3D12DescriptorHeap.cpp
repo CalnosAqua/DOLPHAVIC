@@ -13,7 +13,7 @@ namespace dlav {
 	}
 
 	CD3D12DescriptorHeap& CD3D12DescriptorHeap::operator=(CD3D12DescriptorHeap&& rhs) noexcept {
-		exit();
+		uninit();
 
 		m_heap = rhs.m_heap;
 		rhs.m_heap = nullptr;
@@ -27,7 +27,7 @@ namespace dlav {
 	{}
 
 	CD3D12DescriptorHeap::~CD3D12DescriptorHeap() noexcept {
-		exit();
+		uninit();
 	}
 
 	bool const CD3D12DescriptorHeap::init(ED3D12ViewType const& type, unsigned int const& size) noexcept {
@@ -78,7 +78,7 @@ namespace dlav {
 		return true;
 	}
 
-	void CD3D12DescriptorHeap::exit() noexcept {
+	void CD3D12DescriptorHeap::uninit() noexcept {
 		safe_release(m_heap);
 	}
 
