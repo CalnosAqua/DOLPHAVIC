@@ -47,8 +47,13 @@ namespace dlav {
 	}
 
 	CFDualComplex const CFDualComplex::normalize() const noexcept {
-		float magnitude = norm();
-		return compare(magnitude, 0.0f) > 0U ? *this / magnitude : ZERO_FDCMP;
+		CFDualComplex result;
+		float norm = this->norm();
+		if (compare(norm, 0.0f) > 0) {
+			result = *this;
+			result /= norm;
+		}
+		return result;
 	}
 
 	CFDualComplex const CFDualComplex::conj() const noexcept {
@@ -56,8 +61,13 @@ namespace dlav {
 	}
 
 	CFDualComplex const CFDualComplex::inv() const noexcept {
-		float magnitude = sqnorm();
-		return compare(magnitude, 0.0f) > 0U ? conj() / magnitude : ZERO_FDCMP;
+		CFDualComplex result;
+		float norm = sqnorm();
+		if (compare(norm, 0.0f) > 0) {
+			result = *this;
+			result /= norm;
+		}
+		return result;
 	}
 
 	float const CFDualComplex::sqnorm() const noexcept {

@@ -147,16 +147,35 @@ namespace dlav {
 	}
 
 	CFMatrix2x2 const CFMatrix2x2::adj() const noexcept {
-		CFMatrix2x2 result = *this;
-		std::swap(result.m00, result.m11);
-		result.m01 *= -1.0f;
-		result.m10 *= -1.0f;
-		return result;
+		CFMatrix2x2 result;
+
+		unsigned int dx, dy, dx_t, dy_t;
+		for (unsigned int cur = 0U; cur < FLT2x2_CNT; ++cur) {
+			for (unsigned int idx = 0U; idx < FLT2x2_CNT; ++idx) {
+				dx = idx % FLT2_CNT;
+				dy = idx / FLT2_CNT;
+				dx_t = cur % FLT2_CNT;
+				dy_t = cur / FLT2_CNT;
+				if (dx_t != dx && dy_t != dy) {
+					result.p[cur] = p[dy * FLT2_CNT + dx];
+					if ((dx_t + dy_t) % 2U == 1U) {
+						result.p[cur] *= -1.0f;
+					}
+				}
+			}
+		}
+
+		return result.transpose();
 	}
 
 	CFMatrix2x2 const CFMatrix2x2::inv() const noexcept {
-		float det_ = det();
-		return compare(det_, 0.0f) ? *this / det_ : ZERO_FMTX2x2;
+		CFMatrix2x2 result;
+		float det = this->det();
+		if (compare(det, 0.0f)) {
+			result = adj();
+			result /= det;
+		}
+		return result;
 	}
 
 	CFMatrix2x2 const CFMatrix2x2::transpose() const noexcept {
@@ -195,7 +214,7 @@ namespace dlav {
 	CFMatrix2x2 const direct(CFVector2 const& lhs, CFVector2 const& rhs) noexcept {
 		CFMatrix2x2 result;
 		for (unsigned int idx = 0U; idx < FLT2x2_CNT; ++idx) {
-			result.p[idx] = lhs.p[idx % FLT2_CNT] * rhs.p[idx / FLT2_CNT];
+			result.p[idx] = lhs.p[idx / FLT2_CNT] * rhs.p[idx % FLT2_CNT];
 		}
 		return result;
 	}
@@ -207,7 +226,7 @@ namespace dlav {
 	CFMatrix2x2 const operator*(CFMatrix2x2 const& lhs, CFMatrix2x2 const& rhs) noexcept {
 		CFMatrix2x2 result;
 		for (unsigned int idx = 0U; idx < FLT2x2_CNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % FLT2_CNT), rhs.column(idx / FLT2_CNT));
+			result.p[idx] = dot(lhs.row(idx / FLT2_CNT), rhs.column(idx % FLT2_CNT));
 		}
 		return result;
 	}
@@ -239,7 +258,7 @@ namespace dlav {
 	CFVector2 const operator*(CFVector2 const& lhs, CFMatrix2x2 const& rhs) noexcept {
 		CFVector2 result;
 		for (unsigned int idx = 0U; idx < FLT2_CNT; ++idx) {
-			result.p[idx] = dot(lhs, rhs.column(idx / FLT2_CNT));
+			result.p[idx] = dot(lhs, rhs.column(idx % FLT2_CNT));
 		}
 		return result;
 	}
@@ -247,7 +266,7 @@ namespace dlav {
 	CFVector2 const operator*(CFMatrix2x2 const& lhs, CFVector2 const& rhs) noexcept {
 		CFVector2 result;
 		for (unsigned int idx = 0U; idx < FLT2_CNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % FLT2_CNT), rhs);
+			result.p[idx] = dot(lhs.row(idx / FLT2_CNT), rhs);
 		}
 		return result;
 	}

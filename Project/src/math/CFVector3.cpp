@@ -44,8 +44,13 @@ namespace dlav {
 	}
 
 	CFVector3 const CFVector3::normalize() const noexcept {
-		float magnitude = norm();
-		return magnitude > 0.0f ? *this / magnitude : ZERO_FVT3;
+		CFVector3 result;
+		float norm = this->norm();
+		if (compare(norm, 0.0f) > 0) {
+			result = *this;
+			result /= norm;
+		}
+		return result;
 	}
 
 	float const CFVector3::sqnorm() const noexcept {

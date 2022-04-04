@@ -156,33 +156,38 @@ namespace dlav {
 		CFMatrix3x3 result = *this;
 		CFMatrix2x2 tmp;
 
-		unsigned int idx1, idx2, idx3;
-		unsigned int  dx1, dx2;
-		unsigned int  dy1, dy2;
-
-		for (idx1 = 0U; idx1 < FLT3x3_CNT; ++idx1) {
-			dx1 = idx1 / FLT3_CNT;
-			dy1 = idx1 % FLT3_CNT;
-			for (idx2 = 0U, idx3 = 0U; idx2 < FLT3x3_CNT; ++idx2) {
-				dx2 = idx2 / FLT3_CNT;
-				dy2 = idx2 % FLT3_CNT;
-				if (dx1 != dx2 && dy1 != dy2) {
-					tmp.p[idx3] = p[dy2 * FLT3_CNT + dx2];
-					++idx3;
+		unsigned int idx, dx, dy, idx_t, dx_t, dy_t;
+		for (unsigned int cur = 0U; cur < FLT3x3_CNT; ++cur) {
+			idx_t = 0U;
+			for (idx = 0U; idx < FLT3x3_CNT; ++idx) {
+				dx = idx % FLT3_CNT;
+				dy = idx / FLT3_CNT;
+				dx_t = cur % FLT3_CNT;
+				dy_t = cur / FLT3_CNT;
+				if (dx_t != dx && dy_t != dy) {
+					tmp.p[idx_t] = p[dy * FLT3_CNT + dx];
+					++idx_t;
 				}
 			}
-			result.p[idx1] = tmp.det();
-			if ((dx1 + dy1) % 2U == 1U) {
-				result.p[idx1] *= -1.0f;
+			dx_t = cur % FLT3_CNT;
+			dy_t = cur / FLT3_CNT;
+			result.p[cur] = tmp.det();
+			if ((dx_t + dy_t) % 2U == 1U) {
+				result.p[cur] *= -1.0f;
 			}
 		}
 
-		return result;
+		return result.transpose();
 	}
 
 	CFMatrix3x3 const CFMatrix3x3::inv() const noexcept {
-		float det_ = det();
-		return compare(det_, 0.0f) ? *this / det_ : ZERO_FMTX3x3;
+		CFMatrix3x3 result;
+		float det = this->det();
+		if (compare(det, 0.0f)) {
+			result = adj();
+			result /= det;
+		}
+		return result;
 	}
 
 	CFMatrix3x3 const CFMatrix3x3::transpose() const noexcept {
@@ -196,10 +201,10 @@ namespace dlav {
 	float const CFMatrix3x3::det() const noexcept {
 		return sum({
 			  m00 * m11 * m22,
-			  m01 * m12 * m20,
-			  m02 * m10 * m21,
 			-(m00 * m12 * m21),
 			-(m01 * m10 * m22),
+			  m01 * m12 * m20,
+			  m02 * m10 * m21,
 			-(m02 * m11 * m20)
 		});
 	}
@@ -227,7 +232,7 @@ namespace dlav {
 	CFMatrix3x3 const direct(CFVector3 const& lhs, CFVector3 const& rhs) noexcept {
 		CFMatrix3x3 result;
 		for (unsigned int idx = 0U; idx < FLT3x3_CNT; ++idx) {
-			result.p[idx] = lhs.p[idx % FLT3_CNT] * rhs.p[idx / FLT3_CNT];
+			result.p[idx] = lhs.p[idx / FLT3_CNT] * rhs.p[idx % FLT3_CNT];
 		}
 		return result;
 	}
@@ -239,7 +244,7 @@ namespace dlav {
 	CFMatrix3x3 const operator*(CFMatrix3x3 const& lhs, CFMatrix3x3 const& rhs) noexcept {
 		CFMatrix3x3 result;
 		for (unsigned int idx = 0U; idx < FLT3x3_CNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % FLT3_CNT), rhs.column(idx / FLT3_CNT));
+			result.p[idx] = dot(lhs.row(idx / FLT3_CNT), rhs.column(idx % FLT3_CNT));
 		}
 		return result;
 	}
@@ -271,7 +276,7 @@ namespace dlav {
 	CFVector3 const operator*(CFVector3 const& lhs, CFMatrix3x3 const& rhs) noexcept {
 		CFVector3 result;
 		for (unsigned int idx = 0U; idx < FLT3_CNT; ++idx) {
-			result.p[idx] = dot(lhs, rhs.column(idx / FLT3_CNT));
+			result.p[idx] = dot(lhs, rhs.column(idx % FLT3_CNT));
 		}
 		return result;
 	}
@@ -279,7 +284,7 @@ namespace dlav {
 	CFVector3 const operator*(CFMatrix3x3 const& lhs, CFVector3 const& rhs) noexcept {
 		CFVector3 result;
 		for (unsigned int idx = 0U; idx < FLT3_CNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % FLT3_CNT), rhs);
+			result.p[idx] = dot(lhs.row(idx / FLT3_CNT), rhs);
 		}
 		return result;
 	}

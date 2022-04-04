@@ -44,8 +44,13 @@ namespace dlav {
 	}
 
 	CFQuaternion const CFQuaternion::normalize() const noexcept {
-		float magnitude = norm();
-		return magnitude > 0.0f ? *this / magnitude : ZERO_FQT;
+		CFQuaternion result;
+		float norm = this->norm();
+		if (compare(norm, 0.0f) > 0) {
+			result = *this;
+			result /= norm;
+		}
+		return result;
 	}
 
 	CFQuaternion const CFQuaternion::conj() const noexcept {
@@ -55,8 +60,13 @@ namespace dlav {
 	}
 
 	CFQuaternion const CFQuaternion::inv() const noexcept {
-		float magnitude = sqnorm();
-		return magnitude > 0.0f ? conj() / magnitude : ZERO_FQT;
+		CFQuaternion result;
+		float norm = sqnorm();
+		if (compare(norm, 0.0f) > 0) {
+			result = *this;
+			result /= norm;
+		}
+		return result;
 	}
 
 	float const CFQuaternion::sqnorm() const noexcept {
