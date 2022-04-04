@@ -2,6 +2,7 @@
  *	@brief	定数バッファビュー
  */
 #pragma once
+#pragma warning(disable : 26495)
 #include "CD3D12DescriptorHeap.hpp"
 #include "SD3D12Resource.hpp"
 #include "CD3D12Device.hpp"

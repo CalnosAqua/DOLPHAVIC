@@ -16,7 +16,7 @@ namespace dlav {
 	{
 		unsigned int idx = 0U;
 		for (auto& arg : args) {
-			if (idx >= COUNT) {
+			if (idx >= FLT2x2_CNT) {
 				break;
 			}
 			p[idx] = arg;
@@ -25,81 +25,81 @@ namespace dlav {
 	}
 
 	CFMatrix2x2& CFMatrix2x2::row(unsigned int const& idx, CFVector2 const& arg) noexcept {
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[idx * CFVector2::COUNT + i] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[idx * FLT2_CNT + i] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::column(unsigned int const& idx, CFVector2 const& arg) noexcept {
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[i * CFVector2::COUNT + idx] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[i * FLT2_CNT + idx] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::row_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector2::COUNT || to >= CFVector2::COUNT) {
+		if (from == to || from >= FLT2_CNT || to >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			std::swap(p[from * CFVector2::COUNT + i], p[to * CFVector2::COUNT + i]);
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			std::swap(p[from * FLT2_CNT + i], p[to * FLT2_CNT + i]);
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::column_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector2::COUNT || to >= CFVector2::COUNT) {
+		if (from == to || from >= FLT2_CNT || to >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			std::swap(p[i * CFVector2::COUNT + from], p[i * CFVector2::COUNT + to]);
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			std::swap(p[i * FLT2_CNT + from], p[i * FLT2_CNT + to]);
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::row_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[idx * CFVector2::COUNT + i] *= amount;
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[idx * FLT2_CNT + i] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::column_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[i * CFVector2::COUNT + idx] *= amount;
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[i * FLT2_CNT + idx] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::row_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector2::COUNT || to >= CFVector2::COUNT) {
+		if (from == to || from >= FLT2_CNT || to >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[to * CFVector2::COUNT + i] += amount * p[from * CFVector2::COUNT + i];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[to * FLT2_CNT + i] += amount * p[from * FLT2_CNT + i];
 		}
 		return *this;
 	}
 
 	CFMatrix2x2& CFMatrix2x2::column_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector2::COUNT || to >= CFVector2::COUNT) {
+		if (from == to || from >= FLT2_CNT || to >= FLT2_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			p[i * CFVector2::COUNT + to] += amount * p[i * CFVector2::COUNT + from];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			p[i * FLT2_CNT + to] += amount * p[i * FLT2_CNT + from];
 		}
 		return *this;
 	}
@@ -126,22 +126,22 @@ namespace dlav {
 
 	CFVector2 const CFMatrix2x2::row(unsigned int const& idx) const noexcept {
 		CFVector2 result;
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			result.p[i] = p[idx * CFVector2::COUNT + i];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			result.p[i] = p[idx * FLT2_CNT + i];
 		}
 		return result;
 	}
 
 	CFVector2 const CFMatrix2x2::column(unsigned int const& idx) const noexcept {
 		CFVector2 result;
-		if (idx >= CFVector2::COUNT) {
+		if (idx >= FLT2_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector2::COUNT; ++i) {
-			result.p[i] = p[i * CFVector2::COUNT + idx];
+		for (unsigned int i = 0U; i < FLT2_CNT; ++i) {
+			result.p[i] = p[i * FLT2_CNT + idx];
 		}
 		return result;
 	}
@@ -194,8 +194,8 @@ namespace dlav {
 
 	CFMatrix2x2 const direct(CFVector2 const& lhs, CFVector2 const& rhs) noexcept {
 		CFMatrix2x2 result;
-		for (unsigned int idx = 0U; idx < CFMatrix2x2::COUNT; ++idx) {
-			result.p[idx] = lhs.p[idx % CFVector2::COUNT] * rhs.p[idx / CFVector2::COUNT];
+		for (unsigned int idx = 0U; idx < FLT2x2_CNT; ++idx) {
+			result.p[idx] = lhs.p[idx % FLT2_CNT] * rhs.p[idx / FLT2_CNT];
 		}
 		return result;
 	}
@@ -206,8 +206,8 @@ namespace dlav {
 
 	CFMatrix2x2 const operator*(CFMatrix2x2 const& lhs, CFMatrix2x2 const& rhs) noexcept {
 		CFMatrix2x2 result;
-		for (unsigned int idx = 0U; idx < CFMatrix2x2::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector2::COUNT), rhs.column(idx / CFVector2::COUNT));
+		for (unsigned int idx = 0U; idx < FLT2x2_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT2_CNT), rhs.column(idx / FLT2_CNT));
 		}
 		return result;
 	}
@@ -238,23 +238,23 @@ namespace dlav {
 
 	CFVector2 const operator*(CFVector2 const& lhs, CFMatrix2x2 const& rhs) noexcept {
 		CFVector2 result;
-		for (unsigned int idx = 0U; idx < CFVector2::COUNT; ++idx) {
-			result.p[idx] = dot(lhs, rhs.column(idx / CFVector2::COUNT));
+		for (unsigned int idx = 0U; idx < FLT2_CNT; ++idx) {
+			result.p[idx] = dot(lhs, rhs.column(idx / FLT2_CNT));
 		}
 		return result;
 	}
 
 	CFVector2 const operator*(CFMatrix2x2 const& lhs, CFVector2 const& rhs) noexcept {
 		CFVector2 result;
-		for (unsigned int idx = 0U; idx < CFVector2::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector2::COUNT), rhs);
+		for (unsigned int idx = 0U; idx < FLT2_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT2_CNT), rhs);
 		}
 		return result;
 	}
 
 	bool const operator==(CFMatrix2x2 const& lhs, CFMatrix2x2 const& rhs) noexcept {
 		bool result = true;
-		for (unsigned int idx = 0U; result && idx < CFMatrix2x2::COUNT; ++idx) {
+		for (unsigned int idx = 0U; result && idx < FLT2x2_CNT; ++idx) {
 			result = !compare(lhs.p[idx], rhs.p[idx]);
 		}
 		return result;

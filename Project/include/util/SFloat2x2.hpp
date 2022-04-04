@@ -5,12 +5,13 @@
 #pragma warning(disable : 4201)
 
 namespace dlav {
+	//!	@brief	成分数
+	static unsigned int constexpr FLT2x2_CNT = 4U;
+
 	/**	@struct SFloat2x2
 	 *	@brief	四つの単精度浮動小数点数を束ねた構造体
 	 */
 	struct SFloat2x2 {
-		//!	@brief	成分数
-		static unsigned int constexpr COUNT = 4U;
 		union {
 			//!	@brief	全成分
 			float p[4U];

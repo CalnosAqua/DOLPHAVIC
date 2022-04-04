@@ -17,7 +17,7 @@ namespace dlav {
 	{
 		unsigned int idx = 0U;
 		for (auto& arg : args) {
-			if (idx >= COUNT) {
+			if (idx >= FLT3x3_CNT) {
 				break;
 			}
 			p[idx] = arg;
@@ -26,87 +26,87 @@ namespace dlav {
 	}
 
 	CFMatrix3x3& CFMatrix3x3::row(unsigned int const& idx, CFVector3 const& arg) noexcept {
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[idx * CFVector3::COUNT + i] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[idx * FLT3_CNT + i] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::column(unsigned int const& idx, CFVector3 const& arg) noexcept {
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[i * CFVector3::COUNT + idx] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[i * FLT3_CNT + idx] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::row_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector3::COUNT || to >= CFVector3::COUNT) {
+		if (from == to || from >= FLT3_CNT || to >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			std::swap(p[from * CFVector3::COUNT + i], p[to * CFVector3::COUNT + i]);
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			std::swap(p[from * FLT3_CNT + i], p[to * FLT3_CNT + i]);
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::column_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector3::COUNT || to >= CFVector3::COUNT) {
+		if (from == to || from >= FLT3_CNT || to >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			std::swap(p[i * CFVector3::COUNT + from], p[i * CFVector3::COUNT + to]);
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			std::swap(p[i * FLT3_CNT + from], p[i * FLT3_CNT + to]);
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::row_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[idx * CFVector3::COUNT + i] *= amount;
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[idx * FLT3_CNT + i] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::column_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[i * CFVector3::COUNT + idx] *= amount;
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[i * FLT3_CNT + idx] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::row_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector3::COUNT || to >= CFVector3::COUNT) {
+		if (from == to || from >= FLT3_CNT || to >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[to * CFVector3::COUNT + i] += amount * p[from * CFVector3::COUNT + i];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[to * FLT3_CNT + i] += amount * p[from * FLT3_CNT + i];
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::column_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector3::COUNT || to >= CFVector3::COUNT) {
+		if (from == to || from >= FLT3_CNT || to >= FLT3_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			p[i * CFVector3::COUNT + to] += amount * p[i * CFVector3::COUNT + from];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			p[i * FLT3_CNT + to] += amount * p[i * FLT3_CNT + from];
 		}
 		return *this;
 	}
 
 	CFMatrix3x3& CFMatrix3x3::operator+=(CFMatrix3x3 const& rhs) noexcept {
-		for (unsigned int idx = 0U; idx < CFMatrix3x3::COUNT; idx += 4U) {
+		for (unsigned int idx = 0U; idx < FLT3x3_CNT; idx += 4U) {
 			_mm_store_ps(&p[idx], _mm_add_ps(_mm_load_ps(&p[idx]), _mm_load_ps(&rhs.p[idx])));
 		}
 		return *this;
@@ -119,7 +119,7 @@ namespace dlav {
 
 	CFMatrix3x3& CFMatrix3x3::operator*=(float const& rhs) noexcept {
 		__m128 tmp = _mm_set1_ps(rhs);
-		for (unsigned int idx = 0U; idx < CFMatrix3x3::COUNT; idx += 4U) {
+		for (unsigned int idx = 0U; idx < FLT3x3_CNT; idx += 4U) {
 			_mm_store_ps(&p[idx], _mm_mul_ps(_mm_load_ps(&p[idx]), tmp));
 		}
 		return *this;
@@ -132,22 +132,22 @@ namespace dlav {
 
 	CFVector3 const CFMatrix3x3::row(unsigned int const& idx) const noexcept {
 		CFVector3 result;
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			result.p[i] = p[idx * CFVector3::COUNT + i];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			result.p[i] = p[idx * FLT3_CNT + i];
 		}
 		return result;
 	}
 
 	CFVector3 const CFMatrix3x3::column(unsigned int const& idx) const noexcept {
 		CFVector3 result;
-		if (idx >= CFVector3::COUNT) {
+		if (idx >= FLT3_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector3::COUNT; ++i) {
-			result.p[i] = p[i * CFVector3::COUNT + idx];
+		for (unsigned int i = 0U; i < FLT3_CNT; ++i) {
+			result.p[i] = p[i * FLT3_CNT + idx];
 		}
 		return result;
 	}
@@ -160,14 +160,14 @@ namespace dlav {
 		unsigned int  dx1, dx2;
 		unsigned int  dy1, dy2;
 
-		for (idx1 = 0U; idx1 < CFMatrix3x3::COUNT; ++idx1) {
-			dx1 = idx1 / CFVector3::COUNT;
-			dy1 = idx1 % CFVector3::COUNT;
-			for (idx2 = 0U, idx3 = 0U; idx2 < CFMatrix3x3::COUNT; ++idx2) {
-				dx2 = idx2 / CFVector3::COUNT;
-				dy2 = idx2 % CFVector3::COUNT;
+		for (idx1 = 0U; idx1 < FLT3x3_CNT; ++idx1) {
+			dx1 = idx1 / FLT3_CNT;
+			dy1 = idx1 % FLT3_CNT;
+			for (idx2 = 0U, idx3 = 0U; idx2 < FLT3x3_CNT; ++idx2) {
+				dx2 = idx2 / FLT3_CNT;
+				dy2 = idx2 % FLT3_CNT;
 				if (dx1 != dx2 && dy1 != dy2) {
-					tmp.p[idx3] = p[dy2 * CFVector3::COUNT + dx2];
+					tmp.p[idx3] = p[dy2 * FLT3_CNT + dx2];
 					++idx3;
 				}
 			}
@@ -226,8 +226,8 @@ namespace dlav {
 
 	CFMatrix3x3 const direct(CFVector3 const& lhs, CFVector3 const& rhs) noexcept {
 		CFMatrix3x3 result;
-		for (unsigned int idx = 0U; idx < CFMatrix3x3::COUNT; ++idx) {
-			result.p[idx] = lhs.p[idx % CFVector3::COUNT] * rhs.p[idx / CFVector3::COUNT];
+		for (unsigned int idx = 0U; idx < FLT3x3_CNT; ++idx) {
+			result.p[idx] = lhs.p[idx % FLT3_CNT] * rhs.p[idx / FLT3_CNT];
 		}
 		return result;
 	}
@@ -238,8 +238,8 @@ namespace dlav {
 
 	CFMatrix3x3 const operator*(CFMatrix3x3 const& lhs, CFMatrix3x3 const& rhs) noexcept {
 		CFMatrix3x3 result;
-		for (unsigned int idx = 0U; idx < CFMatrix3x3::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector3::COUNT), rhs.column(idx / CFVector3::COUNT));
+		for (unsigned int idx = 0U; idx < FLT3x3_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT3_CNT), rhs.column(idx / FLT3_CNT));
 		}
 		return result;
 	}
@@ -270,23 +270,23 @@ namespace dlav {
 
 	CFVector3 const operator*(CFVector3 const& lhs, CFMatrix3x3 const& rhs) noexcept {
 		CFVector3 result;
-		for (unsigned int idx = 0U; idx < CFVector3::COUNT; ++idx) {
-			result.p[idx] = dot(lhs, rhs.column(idx / CFVector3::COUNT));
+		for (unsigned int idx = 0U; idx < FLT3_CNT; ++idx) {
+			result.p[idx] = dot(lhs, rhs.column(idx / FLT3_CNT));
 		}
 		return result;
 	}
 
 	CFVector3 const operator*(CFMatrix3x3 const& lhs, CFVector3 const& rhs) noexcept {
 		CFVector3 result;
-		for (unsigned int idx = 0U; idx < CFVector3::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector3::COUNT), rhs);
+		for (unsigned int idx = 0U; idx < FLT3_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT3_CNT), rhs);
 		}
 		return result;
 	}
 
 	bool const operator==(CFMatrix3x3 const& lhs, CFMatrix3x3 const& rhs) noexcept {
 		bool result = true;
-		for (unsigned int idx = 0U; result && idx < CFMatrix3x3::COUNT; ++idx) {
+		for (unsigned int idx = 0U; result && idx < FLT3x3_CNT; ++idx) {
 			result = !compare(lhs.p[idx], rhs.p[idx]);
 		}
 		return result;

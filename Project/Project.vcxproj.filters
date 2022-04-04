@@ -36,6 +36,24 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{18938bb2-7230-4fc4-88dd-5280e7edab29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Picture Loader">
+      <UniqueIdentifier>{e198ca4e-50a2-42cc-b650-ad4e1be11475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Picture Loader\headers">
+      <UniqueIdentifier>{1d0159fe-f1cd-4d5a-a4aa-3ed4b1e4dadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Picture Loader\sources">
+      <UniqueIdentifier>{5dd8b176-4492-4a99-bc0e-a6a80fd2c8e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderings">
+      <UniqueIdentifier>{b569ee2e-b94d-4912-af81-e65ff0a9494a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderings\headers">
+      <UniqueIdentifier>{1db6c7e7-0673-45d8-990f-a35798d0b4dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderings\sources">
+      <UniqueIdentifier>{730db196-2085-4f7d-a905-04293d72949d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +163,12 @@
     </ClCompile>
     <ClCompile Include="src\d3d12\CD3D12GraphicsPipeline.cpp">
       <Filter>Direct3D12\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\picload\SDLColour.cpp">
+      <Filter>Picture Loader\sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rend\CDLD3Camera.cpp">
+      <Filter>Renderings\sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +351,21 @@
     </ClInclude>
     <ClInclude Include="include\d3d12\CD3D12GraphicsPipeline.hpp">
       <Filter>Direct3D12\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\picload\EDLFileFormat.hpp">
+      <Filter>Picture Loader\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\picload\EDLColourFormat.hpp">
+      <Filter>Picture Loader\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\picload\SDLColour.hpp">
+      <Filter>Picture Loader\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\picload\CDLPixelMap.hpp">
+      <Filter>Picture Loader\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rend\CDLD3Camera.hpp">
+      <Filter>Renderings\headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

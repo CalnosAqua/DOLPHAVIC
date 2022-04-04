@@ -15,7 +15,7 @@ namespace dlav {
 	{
 		unsigned int idx = 0U;
 		for (auto& arg : args) {
-			if (idx >= COUNT) {
+			if (idx >= FLT4_CNT) {
 				break;
 			}
 			p[idx] = arg;
@@ -113,7 +113,7 @@ namespace dlav {
 
 	bool const operator==(CFVector4 const& lhs, CFVector4 const& rhs) noexcept {
 		bool result = true;
-		for (unsigned int idx = 0U; result && idx < CFVector4::COUNT; ++idx) {
+		for (unsigned int idx = 0U; result && idx < FLT4_CNT; ++idx) {
 			result = !compare(lhs.p[idx], rhs.p[idx]);
 		}
 		return result;

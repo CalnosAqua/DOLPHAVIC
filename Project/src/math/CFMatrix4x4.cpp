@@ -17,7 +17,7 @@ namespace dlav {
 	{
 		unsigned int idx = 0U;
 		for (auto& arg : args) {
-			if (idx >= COUNT) {
+			if (idx >= FLT4x4_CNT) {
 				break;
 			}
 			p[idx] = arg;
@@ -26,87 +26,87 @@ namespace dlav {
 	}
 
 	CFMatrix4x4& CFMatrix4x4::row(unsigned int const& idx, CFVector4 const& arg) noexcept {
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[idx * CFVector4::COUNT + i] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[idx * FLT4_CNT + i] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::column(unsigned int const& idx, CFVector4 const& arg) noexcept {
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[i * CFVector4::COUNT + idx] = arg.p[i];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[i * FLT4_CNT + idx] = arg.p[i];
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::row_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector4::COUNT || to >= CFVector4::COUNT) {
+		if (from == to || from >= FLT4_CNT || to >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			std::swap(p[from * CFVector4::COUNT + i], p[to * CFVector4::COUNT + i]);
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			std::swap(p[from * FLT4_CNT + i], p[to * FLT4_CNT + i]);
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::column_swap(unsigned int const& from, unsigned int const& to) noexcept {
-		if (from == to || from >= CFVector4::COUNT || to >= CFVector4::COUNT) {
+		if (from == to || from >= FLT4_CNT || to >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			std::swap(p[i * CFVector4::COUNT + from], p[i * CFVector4::COUNT + to]);
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			std::swap(p[i * FLT4_CNT + from], p[i * FLT4_CNT + to]);
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::row_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[idx * CFVector4::COUNT + i] *= amount;
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[idx * FLT4_CNT + i] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::column_scale(unsigned int const& idx, float const& amount) noexcept {
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[i * CFVector4::COUNT + idx] *= amount;
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[i * FLT4_CNT + idx] *= amount;
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::row_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector4::COUNT || to >= CFVector4::COUNT) {
+		if (from == to || from >= FLT4_CNT || to >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[to * CFVector4::COUNT + i] += amount * p[from * CFVector4::COUNT + i];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[to * FLT4_CNT + i] += amount * p[from * FLT4_CNT + i];
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::column_sop(unsigned int const& from, unsigned int const& to, float const& amount) noexcept {
-		if (from == to || from >= CFVector4::COUNT || to >= CFVector4::COUNT) {
+		if (from == to || from >= FLT4_CNT || to >= FLT4_CNT) {
 			return *this;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			p[i * CFVector4::COUNT + to] += amount * p[i * CFVector4::COUNT + from];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			p[i * FLT4_CNT + to] += amount * p[i * FLT4_CNT + from];
 		}
 		return *this;
 	}
 
 	CFMatrix4x4& CFMatrix4x4::operator+=(CFMatrix4x4 const& rhs) noexcept {
-		for (unsigned int idx = 0U; idx < CFMatrix4x4::COUNT; idx += 4U) {
+		for (unsigned int idx = 0U; idx < FLT4x4_CNT; idx += 4U) {
 			_mm_store_ps(&p[idx], _mm_add_ps(_mm_load_ps(&p[idx]), _mm_load_ps(&rhs.p[idx])));
 		}
 		return *this;
@@ -119,7 +119,7 @@ namespace dlav {
 
 	CFMatrix4x4& CFMatrix4x4::operator*=(float const& rhs) noexcept {
 		__m128 tmp = _mm_set1_ps(rhs);
-		for (unsigned int idx = 0U; idx < CFMatrix4x4::COUNT; idx += 4U) {
+		for (unsigned int idx = 0U; idx < FLT4x4_CNT; idx += 4U) {
 			_mm_store_ps(&p[idx], _mm_mul_ps(_mm_load_ps(&p[idx]), tmp));
 		}
 		return *this;
@@ -132,22 +132,22 @@ namespace dlav {
 
 	CFVector4 const CFMatrix4x4::row(unsigned int const& idx) const noexcept {
 		CFVector4 result;
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			result.p[i] = p[idx * CFVector4::COUNT + i];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			result.p[i] = p[idx * FLT4_CNT + i];
 		}
 		return result;
 	}
 
 	CFVector4 const CFMatrix4x4::column(unsigned int const& idx) const noexcept {
 		CFVector4 result;
-		if (idx >= CFVector4::COUNT) {
+		if (idx >= FLT4_CNT) {
 			return result;
 		}
-		for (unsigned int i = 0U; i < CFVector4::COUNT; ++i) {
-			result.p[i] = p[i * CFVector4::COUNT + idx];
+		for (unsigned int i = 0U; i < FLT4_CNT; ++i) {
+			result.p[i] = p[i * FLT4_CNT + idx];
 		}
 		return result;
 	}
@@ -160,14 +160,14 @@ namespace dlav {
 		unsigned int  dx1, dx2;
 		unsigned int  dy1, dy2;
 
-		for (idx1 = 0U; idx1 < CFMatrix4x4::COUNT; ++idx1) {
-			dx1 = idx1 / CFVector4::COUNT;
-			dy1 = idx1 % CFVector4::COUNT;
-			for (idx2 = 0U, idx4 = 0U; idx2 < CFMatrix4x4::COUNT; ++idx2) {
-				dx2 = idx2 / CFVector4::COUNT;
-				dy2 = idx2 % CFVector4::COUNT;
+		for (idx1 = 0U; idx1 < FLT4x4_CNT; ++idx1) {
+			dx1 = idx1 / FLT4_CNT;
+			dy1 = idx1 % FLT4_CNT;
+			for (idx2 = 0U, idx4 = 0U; idx2 < FLT4x4_CNT; ++idx2) {
+				dx2 = idx2 / FLT4_CNT;
+				dy2 = idx2 % FLT4_CNT;
 				if (dx1 != dx2 && dy1 != dy2) {
-					tmp.p[idx4] = p[dy2 * CFVector4::COUNT + dx2];
+					tmp.p[idx4] = p[dy2 * FLT4_CNT + dx2];
 					++idx4;
 				}
 			}
@@ -247,8 +247,8 @@ namespace dlav {
 
 	CFMatrix4x4 const direct(CFVector4 const& lhs, CFVector4 const& rhs) noexcept {
 		CFMatrix4x4 result;
-		for (unsigned int idx = 0U; idx < CFMatrix4x4::COUNT; ++idx) {
-			result.p[idx] = lhs.p[idx % CFVector4::COUNT] * rhs.p[idx / CFVector4::COUNT];
+		for (unsigned int idx = 0U; idx < FLT4x4_CNT; ++idx) {
+			result.p[idx] = lhs.p[idx % FLT4_CNT] * rhs.p[idx / FLT4_CNT];
 		}
 		return result;
 	}
@@ -259,8 +259,8 @@ namespace dlav {
 
 	CFMatrix4x4 const operator*(CFMatrix4x4 const& lhs, CFMatrix4x4 const& rhs) noexcept {
 		CFMatrix4x4 result;
-		for (unsigned int idx = 0U; idx < CFMatrix4x4::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector4::COUNT), rhs.column(idx / CFVector4::COUNT));
+		for (unsigned int idx = 0U; idx < FLT4x4_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT4_CNT), rhs.column(idx / FLT4_CNT));
 		}
 		return result;
 	}
@@ -291,23 +291,23 @@ namespace dlav {
 
 	CFVector4 const operator*(CFVector4 const& lhs, CFMatrix4x4 const& rhs) noexcept {
 		CFVector4 result;
-		for (unsigned int idx = 0U; idx < CFVector4::COUNT; ++idx) {
-			result.p[idx] = dot(lhs, rhs.column(idx / CFVector4::COUNT));
+		for (unsigned int idx = 0U; idx < FLT4_CNT; ++idx) {
+			result.p[idx] = dot(lhs, rhs.column(idx / FLT4_CNT));
 		}
 		return result;
 	}
 
 	CFVector4 const operator*(CFMatrix4x4 const& lhs, CFVector4 const& rhs) noexcept {
 		CFVector4 result;
-		for (unsigned int idx = 0U; idx < CFVector4::COUNT; ++idx) {
-			result.p[idx] = dot(lhs.row(idx % CFVector4::COUNT), rhs);
+		for (unsigned int idx = 0U; idx < FLT4_CNT; ++idx) {
+			result.p[idx] = dot(lhs.row(idx % FLT4_CNT), rhs);
 		}
 		return result;
 	}
 
 	bool const operator==(CFMatrix4x4 const& lhs, CFMatrix4x4 const& rhs) noexcept {
 		bool result = true;
-		for (unsigned int idx = 0U; result && idx < CFMatrix4x4::COUNT; ++idx) {
+		for (unsigned int idx = 0U; result && idx < FLT4x4_CNT; ++idx) {
 			result = !compare(lhs.p[idx], rhs.p[idx]);
 		}
 		return result;

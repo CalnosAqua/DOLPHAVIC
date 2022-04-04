@@ -15,7 +15,7 @@ namespace dlav {
 	{
 		unsigned int idx = 0U;
 		for (auto& arg : args) {
-			if (idx >= COUNT) {
+			if (idx >= FLT4_CNT) {
 				break;
 			}
 			p[idx] = arg;
@@ -132,7 +132,7 @@ namespace dlav {
 
 	bool const operator==(CFQuaternion const& lhs, CFQuaternion const& rhs) noexcept {
 		bool result = true;
-		for (unsigned int idx = 0U; result && idx < CFQuaternion::COUNT; ++idx) {
+		for (unsigned int idx = 0U; result && idx < FLT4_CNT; ++idx) {
 			result = !compare(lhs.p[idx], rhs.p[idx]);
 		}
 		return result;
