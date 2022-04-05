@@ -110,6 +110,34 @@ namespace dlav {
 	 *	@return 剪断行列
 	 */
 	CFMatrix4x4 const makeSkew(EHandSide const&, ESkewType const&, EAxisType const&, CFRotation const&) noexcept;
+	/**	@brief ビュー変換行列生成関数
+	 *	@return ビュー変換行列
+	 */
+	CFMatrix4x4 const makeLookAtMatrix(EHandSide const&, CFVector3 const& eye, CFVector3 const& lookat, CFVector3 const& up) noexcept;
+	/**	@brief 透視投影変換行列生成関数
+	 *	@return 透視投影変換行列
+	 */
+	CFMatrix4x4 const makePerspectiveMatrix(EHandSide const&, float const& near, float const& far, float const& width, float const& height, float const& wndpos) noexcept;
+	/**	@brief Ｘ軸抽出関数
+	 *	@return Ｘ軸を表す正規化済みのベクトル
+	 */
+	CFVector2 const makeNormalizedXAxis(CFRotation const&) noexcept;
+	/**	@brief Ｙ軸抽出関数
+	 *	@return Ｙ軸を表す正規化済みのベクトル
+	 */
+	CFVector2 const makeNormalizedYAxis(CFRotation const&) noexcept;
+	/**	@brief Ｘ軸抽出関数
+	 *	@return Ｘ軸を表す正規化済みのベクトル
+	 */
+	CFVector3 const makeNormalizedXAxis(CFQuaternion const&) noexcept;
+	/**	@brief Ｙ軸抽出関数
+	 *	@return Ｙ軸を表す正規化済みのベクトル
+	 */
+	CFVector3 const makeNormalizedYAxis(CFQuaternion const&) noexcept;
+	/**	@brief Ｚ軸抽出関数
+	 *	@return Ｚ軸を表す正規化済みのベクトル
+	 */
+	CFVector3 const makeNormalizedZAxis(CFQuaternion const&) noexcept;
 
 	/* 実装 */
 

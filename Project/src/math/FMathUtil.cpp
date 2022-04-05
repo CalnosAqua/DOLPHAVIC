@@ -248,9 +248,10 @@ namespace dlav {
 	CFMatrix3x3 const makeRotate(EHandSide const& hs, CFRotation const& rot) noexcept {
 		CFMatrix3x3 result = UNIT_FMTX3x3;
 
-		result.m11 = result.m00 = rot.cos();
-		result.m01 = result.m10 = rot.sin();
-		result.m01 *= -1.0f;
+		result.m00 = rot.cos();
+		result.m01 =-rot.sin();
+		result.m10 = rot.sin();
+		result.m11 = rot.cos();
 
 		return hs == EHandSide::LHS ? result.transpose() : result;
 	}
@@ -320,5 +321,89 @@ namespace dlav {
 		result = (st == ESkewType::SECONDARY) ? result.transpose() : result;
 		result = (hs == EHandSide::LHS) ? result.transpose() : result;
 		return result;
+	}
+
+	CFMatrix4x4 const makeLookAtMatrix(EHandSide const& hs, CFVector3 const& eye, CFVector3 const& lookat, CFVector3 const& up) noexcept {
+		CFVector3 z = (eye - lookat).normalize();
+		CFVector3 x = (cross(up, z)).normalize();
+		CFVector3 y = (cross(z, x)).normalize();
+		CFVector3 e = CFVector3(-dot(x, eye), -dot(y, eye), -dot(z, eye));
+
+		CFMatrix4x4 result = UNIT_FMTX4x4;
+		memcpy(&result.p[ 0], x.p, sizeof(float) * 3U);
+		memcpy(&result.p[ 4], y.p, sizeof(float) * 3U);
+		memcpy(&result.p[ 8], z.p, sizeof(float) * 3U);
+		memcpy(&result.p[12], e.p, sizeof(float) * 3U);
+
+		return (hs == EHandSide::LHS) ? result.transpose() : result;
+	}
+
+	CFMatrix4x4 const makePerspectiveMatrix(EHandSide const& hs, float const& near, float const& far, float const& width, float const& height, float const& wndpos) noexcept {
+		CFMatrix4x4 result;
+		float z = near / far;
+		float dz = 1.0f - z;
+		float ifar = 1.0f / far;
+		float x_tan = wndpos / (width * 0.5f);
+		float y_tan = wndpos / (height * 0.5f);
+		float aspect = width / height;
+
+		switch (hs) {
+		case EHandSide::LHS:
+			result = CFMatrix4x4(
+				x_tan, 0.0f, 0.0f, 0.0f,
+				0.0f, y_tan * aspect, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f / dz, z / dz,
+				0.0f, 0.0f, -1.0f, 0.0f
+			);
+			break;
+		case EHandSide::RHS:
+			result = CFMatrix4x4(
+				x_tan, 0.0f, 0.0f, 0.0f,
+				0.0f, y_tan * aspect, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f / dz, -z / dz,
+				0.0f, 0.0f, 1.0f, 0.0f
+			);
+			break;
+		}
+
+		return result;
+	}
+
+	CFVector2 const makeNormalizedXAxis(CFRotation const& rot) noexcept {
+		CFVector2 result;
+		result.x = rot.cos();
+		result.y =-rot.sin();
+		return result.normalize();
+	}
+
+	CFVector2 const makeNormalizedYAxis(CFRotation const& rot) noexcept {
+		CFVector2 result;
+		result.x = rot.sin();
+		result.y = rot.cos();
+		return result.normalize();
+	}
+	
+	CFVector3 const makeNormalizedXAxis(CFQuaternion const& qt) noexcept {
+		CFVector3 result;
+		result.x = sum({ qt.x * qt.x, -(qt.y * qt.y), -(qt.z * qt.z), qt.w * qt.w });
+		result.y = 2.0f * sum({ qt.x * qt.y, -(qt.z * qt.w) });
+		result.z = 2.0f * sum({ qt.x * qt.z, qt.y * qt.w });
+		return result.normalize();
+	}
+	
+	CFVector3 const makeNormalizedYAxis(CFQuaternion const& qt) noexcept {
+		CFVector3 result;
+		result.x = 2.0f * sum({ qt.x * qt.y, qt.z * qt.w });
+		result.y = sum({ -(qt.x * qt.x), qt.y * qt.y, -(qt.z * qt.z), qt.w * qt.w });
+		result.z = 2.0f * sum({ qt.y * qt.z, -(qt.x * qt.w) });
+		return result.normalize();
+	}
+
+	CFVector3 const makeNormalizedZAxis(CFQuaternion const& qt) noexcept {
+		CFVector3 result;
+		result.x = 2.0f * sum({ qt.x * qt.z, -(qt.y * qt.w) });
+		result.y = 2.0f * sum({ qt.y * qt.z, qt.x * qt.w });
+		result.z = sum({ -(qt.x * qt.x), -(qt.y * qt.y), qt.z * qt.z, qt.w * qt.w });
+		return result.normalize();
 	}
 }

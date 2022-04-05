@@ -1,9 +1,12 @@
-﻿/**	@file	CDLD3Camera.hpp
+﻿/**	@file	CDLCamera.hpp
  *	@brief	Dolphavic Library 用の三次元カメラ
  */
 #pragma once
+#include "math/EHandSide.hpp"
 #include "math/EAxisType.hpp"
 #include "math/CFRotation.hpp"
+#include "math/CFMatrix4x4.hpp"
+#include "math/CFVector4.hpp"
 #include "math/CFVector3.hpp"
 #include "math/CFQuaternion.hpp"
 
@@ -35,6 +38,19 @@ namespace dlav {
 	 */
 	class CCamera final {
 	public	:
+		//!	@brief	注視位置
+		CFVector3 m_lookat;
+		//!	@brief	垂直画角 (x)
+		float m_height;
+		//!	@brief	水平画角 (y)
+		float m_width;
+		//!	@brief	前方クリップ位置 (z_min)
+		float m_near;
+		//!	@brief	後方クリップ位置 (z_max)
+		float m_far;
+		//!	@brief	投影位置 (d)
+		float m_wndpos;
+
 		//!	@brief	ムーブコンストラクタ
 		CCamera(CCamera&&) noexcept = default;
 		//!	@brief	コピーコンストラクタ
@@ -49,35 +65,14 @@ namespace dlav {
 		//!	@brief	デストラクタ
 		~CCamera() noexcept = default;
 
-		//!	@brief	座標取得関数
-		CFVector3 const getPosition() const noexcept;
-		//!	@brief	姿勢取得関数
-		CFQuaternion const getPosture() const noexcept;
-		//!	@brief	カメラにとってのＸ軸取得関数
-		CFVector3 const getXAxis() const noexcept;
-		//!	@brief	カメラにとってのＹ軸取得関数
-		CFVector3 const getYAxis() const noexcept;
-		//!	@brief	カメラにとってのＺ軸取得関数
-		CFVector3 const getZAxis() const noexcept;
-		//!	@brief	
+		//!	@brief	ワールド変換行列を生成する関数
+		CFMatrix4x4 world_mtx(EHandSide const&) noexcept;
 
 	private	:
 		//!	@brief	カメラ位置
 		CFVector3 m_eye;
-		//!	@brief	注視位置
-		CFVector3 m_lookat;
 		//!	@brief	姿勢
 		CFQuaternion m_posture;
-		//!	@brief	垂直画角 (x)
-		float m_height;
-		//!	@brief	水平画角 (y)
-		float m_width;
-		//!	@brief	前方クリップ位置 (z_min)
-		float m_near;
-		//!	@brief	後方クリップ位置 (z_max)
-		float m_far;
-		//!	@brief	投影位置 (d)
-		float m_prate;
 		//!	@brief	投影モード
 		EProjectiveMode m_pmode;
 		//!	@brief	追従モード

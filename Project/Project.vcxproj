@@ -230,7 +230,7 @@
     <ClCompile Include="src\math\FMathUtil.cpp" />
     <ClCompile Include="src\math\Math.cpp" />
     <ClCompile Include="src\picload\SDLColour.cpp" />
-    <ClCompile Include="src\rend\CDLD3Camera.cpp" />
+    <ClCompile Include="src\rend\CDLCamera.cpp" />
     <ClCompile Include="src\util\CTimer.cpp" />
     <ClCompile Include="src\win\CWindow.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -297,7 +297,7 @@
     <ClInclude Include="include\picload\EDLColourFormat.hpp" />
     <ClInclude Include="include\picload\EDLFileFormat.hpp" />
     <ClInclude Include="include\picload\SDLColour.hpp" />
-    <ClInclude Include="include\rend\CDLD3Camera.hpp" />
+    <ClInclude Include="include\rend\CDLCamera.hpp" />
     <ClInclude Include="include\util\CTimer.hpp" />
     <ClInclude Include="include\util\INoncopyable.hpp" />
     <ClInclude Include="include\util\INonmovable.hpp" />

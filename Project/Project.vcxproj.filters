@@ -167,7 +167,7 @@
     <ClCompile Include="src\picload\SDLColour.cpp">
       <Filter>Picture Loader\sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\rend\CDLD3Camera.cpp">
+    <ClCompile Include="src\rend\CDLCamera.cpp">
       <Filter>Renderings\sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -364,7 +364,7 @@
     <ClInclude Include="include\picload\CDLPixelMap.hpp">
       <Filter>Picture Loader\headers</Filter>
     </ClInclude>
-    <ClInclude Include="include\rend\CDLD3Camera.hpp">
+    <ClInclude Include="include\rend\CDLCamera.hpp">
       <Filter>Renderings\headers</Filter>
     </ClInclude>
   </ItemGroup>
