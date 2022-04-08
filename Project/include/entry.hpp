@@ -1,4 +1,4 @@
-/**	@file	dalib.hpp
+﻿/**	@file	entry.hpp
  *	@brief	ライブラリエントリヘッダ
  */
 #pragma once

@@ -175,7 +175,7 @@
     <ClInclude Include="stdafx.hpp">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="include\dalib.hpp">
+    <ClInclude Include="include\entry.hpp">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="include\math\CFVector2.hpp">

@@ -22,7 +22,7 @@ namespace dlav {
 		switch (hs) {
 		case EHandSide::RHS:
 			return makeTransit(EHandSide::RHS, m_eye) * makeRotate(EHandSide::RHS, m_posture);
-		case EHandSide::LHS:
+		default:
 			return makeRotate(EHandSide::LHS, m_posture) * makeTransit(EHandSide::LHS, m_eye);
 		}
 	}

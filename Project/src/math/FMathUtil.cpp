@@ -338,6 +338,7 @@ namespace dlav {
 		return (hs == EHandSide::LHS) ? result.transpose() : result;
 	}
 
+	/*/
 	CFMatrix4x4 const makePerspectiveMatrix(EHandSide const& hs, float const& near, float const& far, float const& width, float const& height, float const& wndpos) noexcept {
 		CFMatrix4x4 result;
 		float z = near / far;
@@ -368,6 +369,7 @@ namespace dlav {
 
 		return result;
 	}
+	/*/
 
 	CFVector2 const makeNormalizedXAxis(CFRotation const& rot) noexcept {
 		CFVector2 result;

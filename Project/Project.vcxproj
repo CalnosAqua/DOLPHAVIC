@@ -286,7 +286,7 @@
     <ClInclude Include="include\math\CFVector2.hpp" />
     <ClInclude Include="include\math\CFVector3.hpp" />
     <ClInclude Include="include\math\CFVector4.hpp" />
-    <ClInclude Include="include\dalib.hpp" />
+    <ClInclude Include="include\entry.hpp" />
     <ClInclude Include="include\geo\CRay.hpp" />
     <ClInclude Include="include\math\EAngleType.hpp" />
     <ClInclude Include="include\math\EAxisType.hpp" />
